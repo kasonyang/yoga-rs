@@ -72,7 +72,9 @@ fn main() {
 		.clang_arg("-Isrc/yoga");
 	if target_os == "emscripten" {
 		let emsdk = env::var("EMSDK").expect("EMSDK environment variable not set");
-		bindgen_builder = bindgen_builder.clang_arg(&format!("-I{}/upstream/emscripten/system/lib/libcxx/include", emsdk));
+		bindgen_builder = bindgen_builder
+			.clang_arg(&format!("-I{}/upstream/emscripten/system/lib/libcxx/include", emsdk))
+			.clang_arg(&format!("-I{}/upstream/emscripten/cache/sysroot/include", emsdk));
 	}
     let bindings = bindgen_builder
         .no_convert_floats()
